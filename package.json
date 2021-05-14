@@ -4,11 +4,14 @@
   "description": "game!",
   "main": "server.js",
   "scripts": {
-    "test": "test?"
+    "test": "test?",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "express-compile-sass": "^4.0.0",
+    "node-sass": "^6.0.0"
   }
 }
