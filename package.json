@@ -1,0 +1,14 @@
+{
+  "name": "resist",
+  "version": "1.0.0",
+  "description": "game!",
+  "main": "server.js",
+  "scripts": {
+    "test": "test?"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
