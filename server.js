@@ -1,9 +1,11 @@
 const express = require('express');
 const compileSass = require('express-compile-sass');
-const app = express();
-const port = 3000;
-const root = process.cwd();
 
+const app = express();
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
+
+// BEGIN SERVER
 app.use(
   compileSass({
     root: __dirname + '/client',
@@ -14,12 +16,24 @@ app.use(
   })
 );
 
-app.use('/ass', express.static('client'));
+app.use(express.static('client'));
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/client/index.html');
 });
 
-app.listen(port, () => {
+const port = process.env.PORT || 3000;
+http.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
+// END SERVER
+
+// BEGIN SOCKET
+io.on('connection', (socket) => {
+  console.log('connected');
+
+  socket.on('create-game', (msg) => {
+    socket.emit('create-game-callback', true);
+  });
+});
+//  END SOCKET
