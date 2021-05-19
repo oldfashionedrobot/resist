@@ -4,11 +4,12 @@ const compileSass = require('express-compile-sass');
 const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
+const root = process.cwd();
 
 // BEGIN SERVER
 app.use(
   compileSass({
-    root: __dirname + '/client',
+    root: root + '/client',
     sourceMap: true, // Includes Base64 encoded source maps in output css
     sourceComments: true, // Includes source comments in output css
     watchFiles: true, // Watches sass files and updates mtime on main files for each change
@@ -19,7 +20,11 @@ app.use(
 app.use(express.static('client'));
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/client/index.html');
+  res.sendFile(root + '/client/app.html');
+});
+
+app.get('/resistance', (req, res) => {
+  res.sendFile(root + '/client/resistance/resistance.html');
 });
 
 const port = process.env.PORT || 3000;
