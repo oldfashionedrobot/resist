@@ -8,9 +8,20 @@
   <link rel="stylesheet" type="text/css" href="/styles/global.scss">
 </head>
 <body>
-  resistance game
+  <h1>Resistance!</h1>
 
-  <input id="gameinput" type="text">  
+  <form id="create-game-form">
+    <label for="name">Game Name</label>
+    <input name="name" type="text">
+    <input type="submit" value="Create Game">
+  </form>
+
+
+  <template id="lobby">
+    <h2 id="lobby-title">Lobby</h2>
+    
+  </template>
+  
   <script type="module" src="/resistance/resistance.js"></script>
 </body>
 </html>

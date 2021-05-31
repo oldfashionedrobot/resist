@@ -13,6 +13,7 @@
     "express": "^4.17.1",
     "express-compile-sass": "^4.0.0",
     "node-sass": "^6.0.0",
-    "socket.io": "^4.1.2"
+    "socket.io": "^4.1.2",
+    "webrtc-adapter": "^8.0.0"
   }
 }

@@ -4,7 +4,8 @@ const compileSass = require('express-compile-sass');
 const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
-const root = process.cwd();
+const path = require('path');
+const root = path.join(__dirname, '..');
 
 // BEGIN SERVER
 app.use(
@@ -33,12 +34,29 @@ http.listen(port, () => {
 });
 // END SERVER
 
+const rooms = [];
+
 // BEGIN SOCKET
 io.on('connection', (socket) => {
-  console.log('connected');
+  socket.on('create-room', (msg) => {
+    console.log(msg, rooms);
+    if (rooms.includes(msg)) {
+      socket.emit('create-room-callback', {
+        status: 'ERROR',
+        message: `Room ${msg} already exists!`,
+      });
+    } else {
+      rooms.push(msg);
+      socket.emit('create-room-callback', {
+        status: 'SUCCESS',
+        message: `Room ${msg} successfully created!`,
+        room: msg,
+      });
+    }
+  });
 
-  socket.on('create-game', (msg) => {
-    socket.emit('create-game-callback', true);
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
   });
 });
 //  END SOCKET
